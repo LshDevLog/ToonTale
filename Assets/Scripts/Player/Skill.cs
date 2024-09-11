@@ -44,8 +44,23 @@ public class Skill : MonoBehaviour
     private void DoSkill(string weapon)
     {
         PlayerCore.Instance.eSTATE = PlayerCore.STATE.Skill;
+        var equip = Equipment.Instance;
 
-        if(weapon == CRYSTAL_SWORD)
+        if(equip._equippedWeapon == equip._slot1_Weapon)
+        {
+            Main_UI_Canvas.Instance._1SlotSlider.value = 0f;
+        }
+        else if(equip._equippedWeapon == equip._slot2_Weapon)
+        {
+            Main_UI_Canvas.Instance._2SlotSlider.value = 0f;
+        }
+        else if (equip._equippedWeapon == equip._slot2_Weapon)
+        {
+            Main_UI_Canvas.Instance._3SlotSlider.value = 0f;
+        }
+
+
+        if (weapon == CRYSTAL_SWORD)
         {
             CrystalSwordSkill().Forget();
         }

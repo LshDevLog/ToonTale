@@ -43,6 +43,4 @@ public class PlayerInteraction : MonoBehaviour
             _detectedObj = null;
         }
     }
-
-
 }

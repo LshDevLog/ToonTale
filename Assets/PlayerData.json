@@ -5,43 +5,23 @@
     },
     "_equipmentData": {
         "_equippedWeapon": {
-            "instanceID": 42792
+            "instanceID": 42754
         },
         "_slot1_Weapon": {
-            "instanceID": 42552
+            "instanceID": 42754
         },
         "_slot2_Weapon": {
-            "instanceID": 42792
+            "instanceID": 42754
         },
         "_slot3_Weapon": {
-            "instanceID": 42596
+            "instanceID": 42754
         },
         "_equippedShield": {
-            "instanceID": 42654
+            "instanceID": 42886
         },
-        "_weaponBox": [
-            {
-                "instanceID": 42552
-            },
-            {
-                "instanceID": 42792
-            },
-            {
-                "instanceID": 42596
-            },
-            {
-                "instanceID": 42774
-            }
-        ],
-        "_shieldBox": [
-            {
-                "instanceID": 42654
-            }
-        ],
+        "_weaponBox": [],
+        "_shieldBox": [],
         "_consumableBox": [
-            {
-                "instanceID": 42892
-            },
             {
                 "instanceID": 42592
             }

@@ -1,9 +1,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
-using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;

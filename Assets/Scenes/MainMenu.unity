@@ -6719,6 +6719,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5b7010cbddf216b418a91cfb92c7c248, type: 2}
   - {fileID: 11400000, guid: 941dfd468ce8c3640a12bc1c8429b587, type: 2}
   - {fileID: 11400000, guid: 27e6cb65c87d9df4897b16721f404403, type: 2}
+  _emptyWeapon: {fileID: 0}
+  _emptyShield: {fileID: 0}
 --- !u!4 &2037885938
 Transform:
   m_ObjectHideFlags: 0
@@ -7074,6 +7076,7 @@ SceneRoots:
   - {fileID: 441732041}
   - {fileID: 6284390025956671566}
   - {fileID: 3457184393280745069}
+  - {fileID: 671682866}
   - {fileID: 2037885938}
   - {fileID: 832575519}
   - {fileID: 1896220558}
@@ -7082,5 +7085,4 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 541611761}
   - {fileID: 1145111671}
-  - {fileID: 671682866}
   - {fileID: 439092268}

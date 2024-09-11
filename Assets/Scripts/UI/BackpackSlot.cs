@@ -3,50 +3,35 @@ using UnityEngine.UI;
 
 public class BackpackSlot : MonoBehaviour
 {
-    [SerializeField]
-    private Button _btn;
+    private Button _slotBtn;
 
-    private ItemBase _item;
+    [HideInInspector]
+    public Consumable_Item _item;
 
     [SerializeField]
     private Image _img;
 
     [SerializeField]
-    private BackpackDesc _descPanel;
+    private BackpackDescPanel _descPanel;
 
     private void Awake()
     {
-        _btn = GetComponent<Button>();
+        _slotBtn = GetComponent<Button>();
     }
 
     private void Start()
     {
-        _btn.onClick.AddListener(OpenDescPanel);
+        _slotBtn.onClick.AddListener(OpenDescPanel);
     }
-
-    public void SetSlot(ItemBase item)
+    public void SetSlot(Consumable_Item item)
     {
-
-        _item = null;
-        _img.sprite = null;
-
-        if (item == null)
-        {
-            return;
-        }
-
         _item = item;
         _img.sprite = _item.icon;
     }
 
     private void OpenDescPanel()
     {
-        if (_item == null || _descPanel == null)
-        {
-            return;
-        }
-
         _descPanel.gameObject.SetActive(true);
-        _descPanel.SetDesc(_item, int.Parse(gameObject.name));
+        _descPanel.SetPanel(_item, int.Parse(gameObject.name));
     }
 }

@@ -26,13 +26,10 @@ public class DataManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-#if UNITY_EDITOR
         _dataPath = Application.dataPath + "/" + DATA_FILE_NAME;
-#else
-        _dataPath = Path.Combine(Application.persistentDataPath, DATA_FILE_NAME);
-#endif
-
         InitAllData();
+
+
     }
 
     private void InitAllData()
@@ -71,10 +68,6 @@ public class DataManager : MonoBehaviour
         string json = JsonUtility.ToJson(_playerDataBox, true);
 
         File.WriteAllText(_dataPath, json);
-
-#if UNITY_EDITOR
-        AssetDatabase.Refresh();
-#endif
     }
 
     public void LoadData()

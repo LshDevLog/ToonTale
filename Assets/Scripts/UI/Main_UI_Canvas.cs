@@ -80,6 +80,9 @@ public class Main_UI_Canvas : MonoBehaviour
         UpdateSlotImg(_3SlotImg, Equipment.Instance._slot3_Weapon.icon);
         UpdateSlotImg(_rSlotImg, Equipment.Instance._equippedWeapon.icon);
         UpdateSlotImg(_lSlotImg, Equipment.Instance._equippedShield.icon);
+        UpdateSkillCoolTimeSlider(_1SlotSlider, Equipment.Instance._slot1_Weapon);
+        UpdateSkillCoolTimeSlider(_2SlotSlider, Equipment.Instance._slot2_Weapon);
+        UpdateSkillCoolTimeSlider(_3SlotSlider, Equipment.Instance._slot3_Weapon);
     }
 
     private void ResetPanelPos()
@@ -165,5 +168,14 @@ public class Main_UI_Canvas : MonoBehaviour
             string maxValue = slider.maxValue.ToString("F0");
             text.text = $"{curValue}/{maxValue}";
         }  
+    }
+
+    private void UpdateSkillCoolTimeSlider(Slider slider, Weapon_Item item)
+    {
+        if(slider != null && item)
+        {
+            slider.maxValue = item.skillCoolTime;
+            slider.value = Mathf.Min(slider.value + Time.deltaTime, slider.maxValue);
+        }
     }
 }

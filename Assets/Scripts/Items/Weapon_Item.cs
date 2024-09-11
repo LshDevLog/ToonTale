@@ -5,4 +5,5 @@ public class Weapon_Item : ItemBase
 {
     public float attack;
     public float skillMp;
+    public float skillCoolTime;
 }

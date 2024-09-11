@@ -22,6 +22,10 @@ public class PlayerDataBox
         _equipmentData._slot1_Weapon = null;
         _equipmentData._slot2_Weapon = null;
         _equipmentData._slot3_Weapon = null;
+
+        _equipmentData._weaponBox = null;
+        _equipmentData._shieldBox = null;
+        _equipmentData._consumableBox = null;
     }
 }
 
