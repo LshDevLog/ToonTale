@@ -4,7 +4,7 @@ public class NormalAttackParticle : MonoBehaviour
 {
     [SerializeField]
     private ParticleSystem _particle;
-
+    
     private void OnEnable()
     {
         if(_particle != null)

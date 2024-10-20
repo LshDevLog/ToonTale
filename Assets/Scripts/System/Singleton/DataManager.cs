@@ -9,6 +9,7 @@ public class DataManager : MonoBehaviour
 
     public StatsData _statsData;
     public EquipmentData _equipmentData;
+    public MapData _mapData;
     public SystemData _systemData;
 
     private const string DATA_FILE_NAME = "PlayerData.json";
@@ -53,16 +54,15 @@ public class DataManager : MonoBehaviour
         if(Equipment.Instance != null)
         {
             var equip = Equipment.Instance;
-            _equipmentData._equippedWeapon = equip._equippedWeapon;
-            _equipmentData._equippedShield = equip._equippedShield;
-            _equipmentData._slot1_Weapon = equip._slot1_Weapon;
-            _equipmentData._slot2_Weapon = equip._slot2_Weapon;
-            _equipmentData._slot3_Weapon = equip._slot3_Weapon;
+            _equipmentData._equippedWeapon = equip._equippedWeapon.itemName;
+            _equipmentData._slot1_Weapon = equip._slot1_Weapon.itemName;
+            _equipmentData._slot2_Weapon = equip._slot2_Weapon.itemName;
+            _equipmentData._slot3_Weapon = equip._slot3_Weapon.itemName;
         }
-
 
         _playerDataBox._statsData = _statsData;
         _playerDataBox._equipmentData = _equipmentData;
+        _playerDataBox._mapData = _mapData;
         _playerDataBox._systemData = _systemData;
 
         string json = JsonUtility.ToJson(_playerDataBox, true);
@@ -77,6 +77,7 @@ public class DataManager : MonoBehaviour
         PlayerDataBox data = JsonUtility.FromJson<PlayerDataBox>(json);
         _statsData = data._statsData;
         _equipmentData = data._equipmentData;
+        _mapData = data._mapData;
         _systemData = data._systemData;
     }
 }

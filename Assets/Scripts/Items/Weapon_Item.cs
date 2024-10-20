@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Weapon Item")]
+[CreateAssetMenu(fileName = "New Weapon Item"), Serializable]
 public class Weapon_Item : ItemBase
 {
     public float attack;

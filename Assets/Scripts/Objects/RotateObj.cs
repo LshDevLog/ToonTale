@@ -3,19 +3,26 @@ using UnityEngine;
 public class RotateObj : MonoBehaviour
 {
     [SerializeField]
-    float _rotSpeed;
+    private float _rotSpeed;
 
     private void Start()
     {
-        if (_rotSpeed == 0)
-            _rotSpeed = 1.0f;
+        InitIfNoInputValue();
     }
     private void Update()
     {
         Rotation();
     }
 
-    void Rotation()
+    private void InitIfNoInputValue()
+    {
+        if (_rotSpeed == 0)
+        {
+            _rotSpeed = 1.0f;
+        }
+    }
+
+    private void Rotation()
     {
         transform.Rotate(Vector3.up, _rotSpeed * Time.deltaTime);
     }

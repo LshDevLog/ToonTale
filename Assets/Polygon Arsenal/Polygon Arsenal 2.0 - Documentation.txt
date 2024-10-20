@@ -15,16 +15,13 @@ Archanor VFX - Kenneth Foldal Moe
 1. Introduction
 ----------------------------------------
 
-Hello and welcome to the documentation of Polygon Arsenal. Here you’ll find some information on how to most efficiently use and customize the asset for your project.
-
-If you’re ready to dive right in, most effects can be found in the 'Polygon Arsenal/Prefabs' folder. Here they are sorted into 3 main categories: Combat, Environment and Interactive.
+If you’re ready to dive in, you can find the effects in the 'Polygon Arsenal/Prefabs' folder. Here they are sorted into 3 main categories: Combat, Environment and Interactive.
 
 To view an effect, you can simply drag and drop it into your Scene and the effect will start playing immediately.
 
-You can also more efficiently browse effects directly in Unity by adding all the demo scenes from the ‘Polygon Arsenal/Demo/Scenes’ folder into the Build Settings, open one of the scenes and press Play.
+You can also more efficiently browse effects directly in Unity by adding all the demo scenes from the ‘Polygon Arsenal/Demo/Scenes’ folder into the Build Settings, open one of the scenes and press Play. Make sure to import the Post Processing package in Package Manager to avoid errors.
 
-While in the Game window you can click through the in-game button row at the bottom to navigate to
-the different scenes.
+While in the Game window you can click through the in-game button row at the bottom to navigate to the different scenes.
 
 ----------------------------------------
 2. Scaling Effects
@@ -40,29 +37,17 @@ This does however mean that some parts of the effects such as Point Lights, Trai
 3. Upgrading to URP
 ----------------------------------------
 
-When you import Polygon Arsenal for the first time, the asset will be using Shaders for the Built-in Render Pipeline (often called Standard). If you are planning to work in Standard, upgrading is not necessary.
+When you import Polygon Arsenal for the first time, the asset will be using Shaders for the Built-in Render Pipeline. 
 
-Before upgrading, make sure your project is configured to use the LWRP (Lightweight Render Pipeline) or URP (Universal Render Pipeline).
+Note that any changes made to Materials in the Polygon Arsenal folder will be lost when upgrading!
 
-WARNING: Any changes made to Materials in the Polygon Arsenal folder will be lost when upgrading!
+To upgrade to URP, locate the 'Polygon Arsenal\Upgrades' folder, then open (double-click) and Import the bundled 'Polygon Arsenal URP' unitypackage to your project. This will replace all of the Materials in the asset folder, and make some minor changes to Scenes and Prefabs in the ‘Polygon Arsenal\Demo’ folder.
 
-To upgrade to LWRP/URP, locate the 'Polygon Arsenal\Upgrades' folder, then open (double-click) and Import the bundled 'Polygon Arsenal URP' unitypackage to your project. This will replace all of the Materials in the asset folder, and make some minor changes to Scenes and Prefabs in the ‘Polygon Arsenal\Demo’ folder.
-
-You can also revert to Standard materials by re-importing the pack from the Asset Store.
+You can revert to Standard materials by re-importing the pack from the Asset Store.
 
 ----------------------------------------
 4. Common Problems
 ----------------------------------------
-
-URP Texture Bug (2019.3)
-
-If you have trouble with particles looking like brightly lit quads in URP after using the 2019.3 URP Upgrade, follow these steps to get the textures working again:
-
-1. In the Package Manager, make sure you are at least using Universal RP 7.2.0 (or higher)
-2. In the Project folder search for "_ADD" to list all the additive materials in the Polygon Arsenal folder
-3. Select all of them and set Blending Mode to Additive.
-
----
 
 URP Missing or Invisible Particles
 
@@ -88,8 +73,6 @@ PolygonSoundSpawn - A handy script for playing sounds which destroys itsself aft
 6. CONTACT
 ----------------------------------------
 
-Need help with anything? For the quickest response, please reach me at archanor.work@gmail.com
+Need help? Send a support request here:
 
-https://archanor.com
-
-https://twitter.com/Archanor
+https://archanor.com/support.html

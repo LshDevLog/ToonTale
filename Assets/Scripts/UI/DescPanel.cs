@@ -1,57 +1,46 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
-public class DescPanel : MonoBehaviour
+public class DescPanel : MonoBehaviour//This Script isn't used.
 {
-    Shield _shield;
-
     ItemBase _item;
 
     [SerializeField]
     Weapon_Item _noWeapon;
 
     [SerializeField]
-    private TextMeshProUGUI _nameText, _descText;
+    private LocalizeStringEvent _nameText, _descText;
 
     [SerializeField]
     private Image _img;
 
     [SerializeField]
-    private GameObject _weaponEquipBtns, _shieldEquipBtn;
+    private GameObject _weaponEquipBtns;
 
     [SerializeField]
-    private Button _qBtn, _wBtn, _eBtn, _backFromWeaponBtn, _equipShieldBtn,_backFromShieldBtn, _weaponBoxBtn, _shieldBoxBtn;
+    private Button _qBtn, _wBtn, _eBtn, _backFromWeaponBtn, _weaponBoxBtn;
 
-    private void Awake()
-    {
-        _shield = FindAnyObjectByType<Shield>();
-    }
     private void Start()
     {
         _qBtn.onClick.AddListener(() => PressWeaponSlot(1));
         _wBtn.onClick.AddListener(() => PressWeaponSlot(2));
         _eBtn.onClick.AddListener(() => PressWeaponSlot(3));
-        _equipShieldBtn.onClick.AddListener(EquipShield);
         _backFromWeaponBtn.onClick.AddListener(() => BtnCommonFunction(_weaponBoxBtn.gameObject));
-        _backFromShieldBtn.onClick.AddListener(() => BtnCommonFunction(_shieldBoxBtn.gameObject));
     }
 
     public void SetPanel(ItemBase item)
     {
         _item = item;
-        _nameText.text = item.itemName;
-        _descText.text = item.description;
+        _nameText.StringReference = item.itemNameLocalKey;
+        _descText.StringReference = item.descLocalKey;
         _img.sprite = item.icon;
 
         if (item is Weapon_Item)
         {
             EventSystem.current.SetSelectedGameObject(_weaponEquipBtns.transform.GetChild(0).gameObject);
-        }
-        else if(item is Shield_Item)
-        {
-            EventSystem.current.SetSelectedGameObject(_equipShieldBtn.gameObject);
         }
     }
 
@@ -98,22 +87,6 @@ public class DescPanel : MonoBehaviour
 
         data.ShowWeaponObj();
         BtnCommonFunction(_weaponBoxBtn.gameObject);
-    }
-
-    private void EquipShield()
-    {
-        var data = Equipment.Instance;
-
-        if (data == null)
-        {
-            return;
-        }
-        data._equippedShield = (Shield_Item)_item;
-
-        data.ShowShieldObj();
-        _shield._durabilityMax = data._equippedShield.durability;
-        _shield._durability = _shield._durabilityMax;
-        BtnCommonFunction(_shieldBoxBtn.gameObject);
     }
 
     private void BtnCommonFunction(GameObject selectObj)

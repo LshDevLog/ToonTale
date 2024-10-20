@@ -58,7 +58,7 @@ ModelImporter:
       - time: 0.86974615
         functionName: OnAttackCol
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 08c7ce8d78facc24e81992509cd39988, type: 3}
+        objectReferenceParameter: {fileID: 11500000, guid: 8fa1f309273c45b42bb37b25b7c7f9fc, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Assets-Shared
+  m_GUID: 902d9749162fbcf4788377830f23e53a
+  m_SerializeEntries:
+  - m_GUID: 01e9964a7aa86b7488c5bf97e71ddf09
+    m_Address: Assets/LocalizationStuff/ItemDescription Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56f7f8c44fdab754bbff5ea9f1d10a42
+    m_Address: Assets/LocalizationStuff/RedFish Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b9bcd42c1991f44d8c78ebed9915ae5
+    m_Address: Assets/LocalizationStuff/SignBoard Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5b8688640aeb2d479a8d13f28c64133
+    m_Address: Assets/LocalizationStuff/OpeningScene Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f15654241b3754c4cad9e588b18dda38
+    m_Address: Assets/LocalizationStuff/New Table Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe637e90d3f03674797f2e4d5c6efe47
+    m_Address: Assets/LocalizationStuff/ItemScriptableObjects Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: f0e84a45875332d418d28ec043fa8b60, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: dfbbca08b00ddfc46ba8480a1257fca9, type: 2}
+    - {fileID: 11400000, guid: d339c63d292811b4cac836a27e1d8fdf, type: 2}

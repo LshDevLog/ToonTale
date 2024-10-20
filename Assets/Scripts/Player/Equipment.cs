@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using UnityEngine;
 
 public class Equipment : MonoBehaviour
@@ -7,22 +6,13 @@ public class Equipment : MonoBehaviour
 
     public Weapon_Item _equippedWeapon, _slot1_Weapon, _slot2_Weapon, _slot3_Weapon;
 
-    public Shield_Item _equippedShield;
+    public Weapon_Item _noWeapon;
 
     [SerializeField]
-    private Weapon_Item _noWeapon;
-
-    [SerializeField]
-    private Shield_Item _noShield;
-
-    [SerializeField]
-    private GameObject[] _weaponObj, _shieldObj;
+    private GameObject[] _weaponObj;
 
     [SerializeField]
     private AudioClip _changeWeaponClip;
-
-    private const string NO_WEAPON = "NoWeapon";
-    private const string NO_SHIELD = "NoShield";
 
     private void Awake()
     {
@@ -40,7 +30,6 @@ public class Equipment : MonoBehaviour
     {
         InitEquipment();
         ShowWeaponObj();
-        ShowShieldObj();
     }
 
     private void Update()
@@ -49,15 +38,29 @@ public class Equipment : MonoBehaviour
     }
 
 
-    private void InitEquipment()
+    public void InitEquipment()
     {
         var data = DataManager.Instance._equipmentData;
-
-        _slot1_Weapon = data._slot1_Weapon ?? _noWeapon;
-        _slot2_Weapon = data._slot2_Weapon ?? _noWeapon;
-        _slot3_Weapon = data._slot3_Weapon ?? _noWeapon;
-        _equippedWeapon = data._equippedWeapon ?? _noWeapon;
-        _equippedShield = data._equippedShield ?? _noShield;
+        var scriptableData = ScriptableObjectBox.Instance._weapons;
+        for (int i = 0; i < scriptableData.Length; i++)
+        {
+            if (data._slot1_Weapon == scriptableData[i].itemName)
+            {
+                _slot1_Weapon = scriptableData[i];
+            }
+            if (data._slot2_Weapon == scriptableData[i].itemName)
+            {
+                _slot2_Weapon = scriptableData[i];
+            }
+            if (data._slot3_Weapon == scriptableData[i].itemName)
+            {
+                _slot3_Weapon = scriptableData[i];
+            }
+            if (data._equippedWeapon == scriptableData[i].itemName)
+            {
+                _equippedWeapon = scriptableData[i];
+            }
+        }
     }
 
     private void ChangeEquippedWeapon()
@@ -98,29 +101,13 @@ public class Equipment : MonoBehaviour
     {
         foreach (var item in _weaponObj)
         {
-            if(_equippedWeapon == null || _equippedWeapon.itemName == NO_WEAPON)
+            if(_equippedWeapon == null || _equippedWeapon.itemName == _noWeapon.itemName)
             {
                 item.SetActive(false);
             }
             else
             {
                 bool isActive = (_equippedWeapon != null && item.name == _equippedWeapon.itemName);
-                item.SetActive(isActive);
-            }
-        }
-    }
-
-    public void ShowShieldObj()
-    {
-        foreach (var item in _shieldObj)
-        {
-            if(_equippedShield == null || _equippedShield.itemName == NO_SHIELD)
-            {
-                item.SetActive(false);
-            }
-            else
-            {
-                bool isActive = (_equippedShield != null && item.name == _equippedShield.itemName);
                 item.SetActive(isActive);
             }
         }

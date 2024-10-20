@@ -1,30 +1,25 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Localization;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public Image _title, _logo, _blackScreen;
-    
-    public Button _newGameBtn, _loadGameBtn, _optionsBtn, _quitBtn, _lanBtn, _optionBackBtn, _newGameConfirmBackBtn, _newGameStartBtn;
-
-    public Slider _bgmSlider, _sfxSlider;
-
-    public GameObject _defaultBtnPanel, _optionsPanel, _confirmPanel;
-
-    public TextMeshProUGUI _warningTxt, _nodataTxt;
+    private UI_MainMenuManager _uiManager;
 
     public StandaloneInputModule _standalone;
 
     public Weapon_Item[] _tempWeapons;//Temp
-    public Shield_Item[] _tempShields;//Temp
     public Weapon_Item _emptyWeapon;
-    public Shield_Item _emptyShield;
+
+    private const string NO_WEAPON = "NoWeapon";
+    private void Awake()
+    {
+        _uiManager = FindAnyObjectByType<UI_MainMenuManager>();
+    }
 
     private void Start()
     {
@@ -33,38 +28,22 @@ public class MainMenuManager : MonoBehaviour
 
     private async void SetOpening()
     {
-        if (TempSystemDataManager.Instance._activateCompanyLogo)
+        if (TempDataManager.Instance._activateCompanyLogo)
         {
-            await _logo.DOFade(1, 0.7f);
-            await _logo.DOFade(0, 0.7f);
+            await _uiManager.FadeLogo();
             LoadSceneCanvas.Instance.CloseAndOpen().Forget();
             await UniTask.Delay(TimeSpan.FromSeconds(0.4f));
-            _logo.gameObject.SetActive(false);
         }
 
-        _blackScreen.gameObject.SetActive(false);
-        _defaultBtnPanel.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(_newGameBtn.gameObject);
-    }
-
-    public void BackDefaultBtnSet()
-    {
-        EventSystem.current.SetSelectedGameObject(_newGameBtn.gameObject);
-        _nodataTxt.gameObject.SetActive(false);
-    }
-
-    public void GoToOptionSet()
-    {
-        EventSystem.current.SetSelectedGameObject(_bgmSlider.gameObject);
-    }
-
-    public void GoToNewGameConfirmSet()
-    {
-        EventSystem.current.SetSelectedGameObject(_newGameConfirmBackBtn.gameObject);
+        _uiManager.SetUI_AfterOpening();
     }
 
     public void NewGameStart()
     {
+        if (TempDataManager.Instance != null)
+        {
+            TempDataManager.Instance.InitTempData();
+        }
         NewStartGameCo().Forget();
     }
 
@@ -75,20 +54,17 @@ public class MainMenuManager : MonoBehaviour
             DataManager.Instance.SaveData();
         }
 
-        _title.gameObject.SetActive(false);
-        _confirmPanel.SetActive(false);
-        _defaultBtnPanel.SetActive(false);
-        TempSystemDataManager.Instance._activateCompanyLogo = false;
+        _uiManager.StartAnd_UI_Inactive();
+        TempDataManager.Instance._activateCompanyLogo = false;
         await Camera.main.transform.DOMoveZ(27, 1.5f).SetEase(Ease.Linear);
         InitData();//Temp
         SceneManager.LoadScene("Opening");
     }
 
-    private async UniTask StartGameCo()
+    private async UniTask LoadGameStartCo()
     {
-        _confirmPanel.SetActive(false);
-        _defaultBtnPanel.SetActive(false);
-        TempSystemDataManager.Instance._activateCompanyLogo = false;
+        _uiManager.StartAnd_UI_Inactive();
+        TempDataManager.Instance._activateCompanyLogo = false;
         await LoadSceneCanvas.Instance.CloseScene();
         DataManager.Instance.LoadData();//Temp
         SceneManager.LoadScene("ToonWorld");
@@ -100,45 +76,33 @@ public class MainMenuManager : MonoBehaviour
         {
             if (DataManager.Instance.ExistingSaveData())
             {
-                StartGameCo().Forget();
+                if(TempDataManager.Instance != null)
+                {
+                    TempDataManager.Instance.InitTempData();
+                }
+                LoadGameStartCo().Forget();
             }
             else
             {
-                Nodata();
+                _uiManager.Nodata();
             }
         }
-    }
-
-    private void Nodata()
-    {
-        _nodataTxt.text = "No data";
-        _nodataTxt.gameObject.SetActive(true);
-    }
-
-    public void QuitBtn()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
     }
 
     private void InitData()//Temp
     {
         if(DataManager.Instance != null)
         {
-            var data = DataManager.Instance._equipmentData;
+            var data = DataManager.Instance;
 
-            data._equippedShield = _emptyShield;
-            data._equippedWeapon = _emptyWeapon;
-            data._slot1_Weapon = _emptyWeapon;
-            data._slot2_Weapon = _emptyWeapon;
-            data._slot3_Weapon = _emptyWeapon;
+            data._equipmentData._equippedWeapon = NO_WEAPON;
+            data._equipmentData._slot1_Weapon = NO_WEAPON;
+            data._equipmentData._slot2_Weapon = NO_WEAPON;
+            data._equipmentData._slot3_Weapon = NO_WEAPON;
 
-            data._weaponBox.Clear();
-            data._shieldBox.Clear();
-            data._consumableBox.Clear();
+            data._equipmentData._weaponBox.Clear();
+            data._equipmentData._consumableBox.Clear();
+            data._mapData._chestIdx.Clear();
 
             DataManager.Instance.SaveData();
         }

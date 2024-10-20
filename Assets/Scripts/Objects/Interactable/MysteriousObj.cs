@@ -6,23 +6,23 @@ using System;
 public class MysteriousObj : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    GameObject[] _topObj;
+    private GameObject[] _topObj;
 
     [SerializeField]
-    MeshRenderer[] _red;
+    private MeshRenderer[] _red;
 
     [SerializeField]
-    Material[] _materials;
+    private Material[] _materials;
 
     [SerializeField]
-    AudioClip _activationClip;
+    private AudioClip _activationClip;
 
     public void OnInteract()
     {
-        ActivateObj().Forget();
+        Activatiton().Forget();
     }
 
-    async UniTask ActivateObj()
+    private async UniTask Activatiton()
     {
         for (int i = 0; i < _topObj.Length; i++)
         {
@@ -42,6 +42,5 @@ public class MysteriousObj : MonoBehaviour, IInteractable
         {
             _red[i].material = _materials[1];
         }
-
     }
 }

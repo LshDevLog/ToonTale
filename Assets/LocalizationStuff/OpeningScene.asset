@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
+  m_Name: OpeningScene
+  m_EditorClassIdentifier: 
+  m_SharedTableData: {fileID: 11400000, guid: a5b8688640aeb2d479a8d13f28c64133, type: 2}
+  m_Tables:
+  - {fileID: 11400000, guid: 401271797d76eeb468ab4505e006c5ba, type: 2}
+  - {fileID: 11400000, guid: ee571197cfe9d824487c7b86341522ca, type: 2}
+  m_Extensions: []
+  m_Group: String Table
+  references:
+    version: 2
+    RefIds: []

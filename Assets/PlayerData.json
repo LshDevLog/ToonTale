@@ -4,28 +4,18 @@
         "_mpMax": 0
     },
     "_equipmentData": {
-        "_equippedWeapon": {
-            "instanceID": 42754
-        },
-        "_slot1_Weapon": {
-            "instanceID": 42754
-        },
-        "_slot2_Weapon": {
-            "instanceID": 42754
-        },
-        "_slot3_Weapon": {
-            "instanceID": 42754
-        },
-        "_equippedShield": {
-            "instanceID": 42886
-        },
-        "_weaponBox": [],
-        "_shieldBox": [],
-        "_consumableBox": [
-            {
-                "instanceID": 42592
-            }
-        ]
+        "_equippedWeapon": "CrystalSword",
+        "_slot1_Weapon": "CrystalSword",
+        "_slot2_Weapon": "Hammer",
+        "_slot3_Weapon": "NoWeapon",
+        "_weaponBox": [
+            "Hammer",
+            "CrystalSword"
+        ],
+        "_consumableBox": []
+    },
+    "_mapData": {
+        "_chestIdx": []
     },
     "_systemData": {
         "_savePoint": ""

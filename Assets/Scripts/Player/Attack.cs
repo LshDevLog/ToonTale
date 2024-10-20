@@ -2,40 +2,40 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    public GameObject _attackCol;
+    public GameObject _attackCol, _hammerskillCol;
 
     [SerializeField]
     private AudioClip _attackSwingClip;
 
     private float _coolTime, _coolTimeMax;
 
+    private const string ATTACK_ANIM = "Attack";
+
     private void Start()
     {
-        _coolTimeMax = 0.5f;
-        _coolTime = _coolTimeMax;
+        InitCoolTime();
     }
 
     private void Update()
     {
         CoolTimeCharge();
+        BackToNormalStateAfeterAttacking();
+    }
+
+    private void InitCoolTime()
+    {
+        _coolTimeMax = 0.5f;
+        _coolTime = _coolTimeMax;
     }
 
     private void CoolTimeCharge()
     {
-        if (_coolTime >= _coolTimeMax)
-        {
-            if(PlayerCore.Instance.eSTATE == PlayerCore.STATE.Attack)
-            {
-                PlayerCore.Instance.eSTATE = PlayerCore.STATE.Normal;
-                return;
-            }
-            else
-            {
-                return;
-            }
-        }
+        _coolTime = (_coolTime < _coolTimeMax) ? _coolTime += Time.deltaTime : _coolTimeMax;
+    }
 
-        _coolTime += Time.deltaTime;
+    private void BackToNormalStateAfeterAttacking()
+    {
+        PlayerCore.Instance.eSTATE = (PlayerCore.Instance.eSTATE == PlayerCore.STATE.Attack) ? PlayerCore.STATE.Normal : PlayerCore.Instance.eSTATE;
     }
 
     public void DoAttack(Animator anim)
@@ -45,7 +45,7 @@ public class Attack : MonoBehaviour
             if (_coolTime >= _coolTimeMax)
             {
                 _coolTime = 0f;
-                anim.SetTrigger("Attack");
+                anim.SetTrigger(ATTACK_ANIM);
                 PlayerCore.Instance.eSTATE = PlayerCore.STATE.Attack;
                 SoundManager.Instance.PlaySfx(_attackSwingClip);
             }
@@ -58,6 +58,14 @@ public class Attack : MonoBehaviour
         if(_attackCol != null)
         {
             _attackCol.SetActive(!_attackCol.activeSelf);
+        }
+    }
+
+    public void ActivationHammerSkillCircle()
+    {
+        if (_hammerskillCol != null)
+        {
+            _hammerskillCol.SetActive(!_hammerskillCol.activeSelf);
         }
     }
 }

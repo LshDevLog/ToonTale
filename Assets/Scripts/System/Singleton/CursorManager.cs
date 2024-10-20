@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,6 +7,7 @@ public class CursorManager : MonoBehaviour
     public static CursorManager Instance;
 
     public GameObject _lastSelectedUI;
+
     private void Awake()
     {
         if (Instance == null)
@@ -24,6 +26,7 @@ public class CursorManager : MonoBehaviour
 
     private void Update()
     {
+
         DeleteCusor();
         LastSelectedUI();
         MouseClickReset();

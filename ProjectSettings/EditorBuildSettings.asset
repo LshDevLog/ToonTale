@@ -15,5 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ToonWorld.unity
     guid: 609dfc81184e329419dd7fd4e4d33105
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: df1eec30ef8487d4aa75fb306dccb405, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: 6243e2c704e78744d8f3f5ebea40ca23, type: 2}
   m_UseUCBPForAssetBundles: 0

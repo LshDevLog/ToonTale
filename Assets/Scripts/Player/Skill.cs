@@ -1,23 +1,17 @@
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Skill : MonoBehaviour
 {
-    Animator _anim;
+    private Animator _anim;
 
     [SerializeField]
-    GameObject _crystalSwordSkillPrefab;
-
-    [SerializeField]
-    AudioClip _crystalSwordSkillClip;
-
-    private const string NO_WEAPON = "NoWeapon";
-    private const string PLANK = "Plank";
-    private const string HAMMER = "Hammer";
-    private const string CRYSTAL_SWORD = "CrystalSword";
+    private WeaponBase[] _weaponBases;
 
     private float _neededMp = 0f;
+
     private void Awake()
     {
         _anim = GetComponent<Animator>();
@@ -32,47 +26,61 @@ public class Skill : MonoBehaviour
 
         _neededMp = Equipment.Instance._equippedWeapon.skillMp;
 
+        DoSkill();
+    }
+
+    private bool CalculateCoolTime()
+    {
+        var equip = Equipment.Instance;
+        var mainUI = Main_UI_Canvas.Instance;
+
+        Slider slotSlider = GetSlotSlider(equip._equippedWeapon);
+
+        if (slotSlider != null && equip._equippedWeapon.skillCoolTime <= slotSlider.value)
+        {
+            slotSlider.value = 0;
+            return true;
+        }
+        return false;
+    }
+
+    private Slider GetSlotSlider(Weapon_Item equippedWeapon)
+    {
+        var equip = Equipment.Instance;
+        var mainUI = Main_UI_Canvas.Instance;
+
+        if (equippedWeapon.itemName == equip._slot1_Weapon.itemName)
+        {
+            return mainUI._1SlotSlider;
+        }
+        else if (equippedWeapon.itemName == equip._slot2_Weapon.itemName)
+        {
+            return mainUI._2SlotSlider;
+        }
+        else if (equippedWeapon.itemName == equip._slot3_Weapon.itemName)
+        {
+            return mainUI._3SlotSlider;
+        }
+        return null;
+    }
+
+    private void DoSkill()
+    {
         if (InputManager.Instance._SKILL_KEY)
         {
-            if (PlayerCore.Instance.eSTATE == PlayerCore.STATE.Normal && Equipment.Instance._equippedWeapon.itemName != NO_WEAPON && PlayerCore.Instance._mp >= _neededMp)
+            if (PlayerCore.Instance.eSTATE == PlayerCore.STATE.Normal && Equipment.Instance._equippedWeapon !=  Equipment.Instance._noWeapon && PlayerCore.Instance._mp >= _neededMp)
             {
-                PlayerCore.Instance._mp -= _neededMp;
-                DoSkill(Equipment.Instance._equippedWeapon.itemName);
+                for (int i = 0; i < _weaponBases.Length; i++)
+                {
+                    if (_weaponBases[i].gameObject.activeSelf)
+                    {
+                        if (CalculateCoolTime())
+                        {
+                            _weaponBases[i].DoSkill();
+                        }
+                    }
+                }
             }
         }
-    }
-    private void DoSkill(string weapon)
-    {
-        PlayerCore.Instance.eSTATE = PlayerCore.STATE.Skill;
-        var equip = Equipment.Instance;
-
-        if(equip._equippedWeapon == equip._slot1_Weapon)
-        {
-            Main_UI_Canvas.Instance._1SlotSlider.value = 0f;
-        }
-        else if(equip._equippedWeapon == equip._slot2_Weapon)
-        {
-            Main_UI_Canvas.Instance._2SlotSlider.value = 0f;
-        }
-        else if (equip._equippedWeapon == equip._slot2_Weapon)
-        {
-            Main_UI_Canvas.Instance._3SlotSlider.value = 0f;
-        }
-
-
-        if (weapon == CRYSTAL_SWORD)
-        {
-            CrystalSwordSkill().Forget();
-        }
-    }
-
-    private async UniTask CrystalSwordSkill()
-    {
-        _anim.SetTrigger("Skill_1");
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
-        SoundManager.Instance.PlaySfx(_crystalSwordSkillClip);
-        GameObject particle = Instantiate(_crystalSwordSkillPrefab, transform.position + Vector3.forward, Quaternion.LookRotation(transform.forward));
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
-        PlayerCore.Instance.eSTATE = PlayerCore.STATE.Normal;
     }
 }

@@ -1,19 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Localization;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Sub_Menu : MonoBehaviour
 {
     [SerializeField]
-    GameObject _subMenuMainPanel, _descPanel;
+    private GameObject _subMenuMainPanel;
 
     [SerializeField]
-    Button _backpackBtn, _quitBtn;
+    private GameObject[] _panels;
 
     [SerializeField]
-    BackpackSlot[] _backpackSlots;
+    public Button _weaponBtn, _backpackBtn, _quitBtn;
+
+    [SerializeField]
+    private Button[] _weaponSlotBtns, _backpackSlotBtns;
 
     private void Start()
     {
@@ -23,8 +27,6 @@ public class Sub_Menu : MonoBehaviour
     private void Update()
     {
         ActivateSubMenuPanel();
-
-        var data = DataManager.Instance._equipmentData._consumableBox;
     }
 
 
@@ -32,42 +34,91 @@ public class Sub_Menu : MonoBehaviour
     {
         if (Input.GetButtonDown("Esc"))
         {
-            _subMenuMainPanel.SetActive(!_subMenuMainPanel.activeSelf);
-            _descPanel.SetActive(false);
-            if (_subMenuMainPanel.activeSelf)
+            var curState = PlayerCore.Instance.eSTATE;
+            if (curState == PlayerCore.STATE.Normal)
             {
-                PlayerCore.Instance.eSTATE = PlayerCore.STATE.SubMenu;
-                EventSystem.current.SetSelectedGameObject(_backpackBtn.gameObject);
-                SetBackpackSlots();
+                OpenSubMenu();
             }
-            else
+            else if(curState == PlayerCore.STATE.SubMenu)
             {
-                PlayerCore.Instance.eSTATE = PlayerCore.STATE.Normal;
+                CloseSubMenu();
+            }
+        }
+    }
+
+    private void OpenSubMenu()
+    {
+        _subMenuMainPanel.SetActive(true);
+        PlayerCore.Instance.eSTATE = PlayerCore.STATE.SubMenu;
+        EventSystem.current.SetSelectedGameObject(_weaponBtn.gameObject);
+        SetWeaponSlots();
+        SetBackpackSlots();
+    }
+
+    private void CloseSubMenu()
+    {
+        _subMenuMainPanel.SetActive(false);
+        PlayerCore.Instance.eSTATE = PlayerCore.STATE.Normal;
+        ResetPanels();
+    }
+
+    private void QuitGame()
+    {
+        if(Main_UI_Canvas.Instance != null)
+        {
+            Main_UI_Canvas.Instance.InstantResetSaveAlarm();
+        }
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    private void ResetPanels()
+    {
+        for (int i = 0; i < _panels.Length; i++)
+        {
+            _panels[i].SetActive(false);
+        }
+        _panels[0].SetActive(true);
+    }
+
+    public void SetWeaponSlots()
+    {
+        var data = DataManager.Instance._equipmentData;
+
+        if (data._weaponBox != null || data._weaponBox.Count > 0)
+        {
+            List<string> items = data._weaponBox;
+
+            foreach (Button btn in _weaponSlotBtns)
+            {
+                btn.gameObject.SetActive(false);
+            }
+
+            for (int i = 0; i < items.Count && i < items.Count; ++i)
+            {
+                _weaponSlotBtns[i].gameObject.SetActive(true);
+                _weaponSlotBtns[i].GetComponent<WeaponSlot>().SetSlot(items[i]);
             }
         }
     }
 
     public void SetBackpackSlots()
     {
-        for (int i = 0; i < _backpackSlots.Length; i++)
-        {
-            _backpackSlots[i]._item = null;
-            _backpackSlots[i].gameObject.SetActive(false);
-        }
+        var data = DataManager.Instance._equipmentData;
 
-        List<Consumable_Item> data = DataManager.Instance._equipmentData._consumableBox;
-
-        for (int i = 0; i < data.Count; i++)
+        if (data._consumableBox != null || data._consumableBox.Count > 0)
         {
-            _backpackSlots[i].gameObject.SetActive(true);
-            _backpackSlots[i].SetSlot(data[i]);
+            List<string> items = data._consumableBox;
+
+            foreach (Button btn in _backpackSlotBtns)
+            {
+                btn.gameObject.SetActive(false);
+            }
+
+            for (int i = 0; i < items.Count && i < items.Count; ++i)
+            {
+                _backpackSlotBtns[i].gameObject.SetActive(true);
+                _backpackSlotBtns[i].GetComponent<BackpackSlot>().SetSlot(items[i]);
+            }
         }
     }
-
-
-    private void QuitGame()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-
 }

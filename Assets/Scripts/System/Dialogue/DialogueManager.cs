@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
@@ -35,7 +36,7 @@ public class DialogueManager : MonoBehaviour
         await _panel.transform.DOScale(1, 0.2f);
     }
 
-    public async UniTask ShowNameAndDialogue(string name, string dialogue)
+    public async UniTask ShowNameAndDialogue(LocalizedString name, LocalizedString dialogue)
     {
         UniTask a = ShowNameText( name, 0.3f);
         UniTask b = ShowDialogueText(dialogue, 0.3f);
@@ -43,14 +44,16 @@ public class DialogueManager : MonoBehaviour
         await UniTask.WhenAll(a, b);
     }
 
-    public async UniTask ShowNameText(string content, float duration)
+    public async UniTask ShowNameText(LocalizedString localizedStr, float duration)
     {
+        string content = await localizedStr.GetLocalizedStringAsync();
         _nameTxt.text = string.Empty;
         await _nameTxt.DOText(content, duration).ToUniTask();
     }
 
-    public async UniTask ShowDialogueText(string content, float duration)
+    public async UniTask ShowDialogueText(LocalizedString localizedStr, float duration)
     {
+        string content = await localizedStr.GetLocalizedStringAsync();
         _dialogueTxt.text = string.Empty;
         await _dialogueTxt.DOText(content, duration).ToUniTask();
     }

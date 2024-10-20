@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: ItemDescription_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 01e9964a7aa86b7488c5bf97e71ddf09, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 5754540032
+    m_Localized: It is a multi-purpose wooden board.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763212288000
+    m_Localized: It's a sharp axe.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3424582062080
+    m_Localized: 'It''s a cheese that smells bad.
+
+      it restores MP to maximum'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3443649368064
+    m_Localized: 'It''s a wine with a good scent.
+
+      it restores HP to maximum'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6142272950272
+    m_Localized: 'It is very popular for its simple design.
+
+      It''s a steady
+      seller.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6179061190656
+    m_Localized: It's a hammer with a very powerful shot.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6205388836864
+    m_Localized: 'It''s a magical branch used by a wizard.
+
+      The attack power
+      is weak, but it contains strong magic.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6257456926720
+    m_Localized: It's a sword that contains magic.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6294744289280
+    m_Localized: 'It is a sword used by an ancient knight.
+
+      It''s rusty, but
+      it''s still powerful.'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

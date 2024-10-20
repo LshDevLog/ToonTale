@@ -3,23 +3,23 @@ using UnityEngine;
 public class FloatingObj : MonoBehaviour
 {
     [SerializeField]
-    float floatingHeight, floatingSpeed;
+    private float _floatingHeight, _floatingSpeed;
 
-    Vector3 originTrs;
+    private Vector3 _originTrs;
 
     private void Start()
     {
-        originTrs = transform.position;
+        _originTrs = transform.position;
     }
     private void Update()
     {
-        FloatingRedFish();
+        Floating();
     }
 
-    void FloatingRedFish()
+    private void Floating()
     {
-        float newY = originTrs.y + Mathf.Sin(Time.time * floatingSpeed) * floatingHeight;
+        float newY = _originTrs.y + Mathf.Sin(Time.time * _floatingSpeed) * _floatingHeight;
 
-        transform.position = new Vector3(originTrs.x , newY, originTrs.z);
+        transform.position = new Vector3(_originTrs.x , newY, _originTrs.z);
     }
 }

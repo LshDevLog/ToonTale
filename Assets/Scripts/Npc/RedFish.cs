@@ -1,29 +1,45 @@
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class RedFish : MonoBehaviour, IInteractable
 {
-    private Storage _storagePanel;
+    PlayerInteraction _playerInteraction;
+
+    public LocalizedString _localizedNameStr;
+    public LocalizedString _localizedStr;
+
+    private bool _isActive = false;
 
     private void Awake()
     {
-        _storagePanel = FindAnyObjectByType<Storage>();
+        _playerInteraction = FindAnyObjectByType<PlayerInteraction>();
     }
 
-    private void Start()
+    private void Update()
     {
-        if(_storagePanel != null && _storagePanel.gameObject.activeSelf)
+        if (_isActive && InputManager.Instance._INTERACTION_KEY)
         {
-            _storagePanel.gameObject.SetActive(false);
+            _isActive = false;
+            var dia = DialogueManager.Instance;
+            dia.ClearDialogue();
+            PlayerCore.Instance.eSTATE = PlayerCore.STATE.Normal;
         }
     }
-
     public void OnInteract()
     {
-        if (_storagePanel != null && PlayerCore.Instance != null)
+        if (PlayerCore.Instance.eSTATE == PlayerCore.STATE.Normal || PlayerCore.Instance.eSTATE == PlayerCore.STATE.Movement)
         {
-            _storagePanel.gameObject.SetActive(true);
-            _storagePanel.InitStorage();
-            PlayerCore.Instance.IsInteracting = true;
+            PlayerCore.Instance.eSTATE = PlayerCore.STATE.Interact;
+            var dia = DialogueManager.Instance;
+            dia.OpenBox();
+            dia.ShowNameText(_localizedNameStr, 0.2f);
+            dia.ShowDialogueText(_localizedStr, 0.2f);
+            Invoke("IsActive", 0.5f);
         }
+    }
+
+    public void IsActive()
+    {
+        _isActive = true;
     }
 }

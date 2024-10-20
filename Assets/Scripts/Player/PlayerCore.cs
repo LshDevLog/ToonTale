@@ -13,16 +13,9 @@ public class PlayerCore : MonoBehaviour
     private Attack _attack;
     private Shield _shield;
     private Skill _skill;
+    private Collider _col;
 
     public float _hp, _hpMax, _mp, _mpMax;
-
-    private bool _isInteracting = false;
-
-    public bool IsInteracting
-    {
-        get { return _isInteracting; }
-        set { _isInteracting = value; }
-    }
 
     public enum STATE
     {
@@ -33,6 +26,7 @@ public class PlayerCore : MonoBehaviour
         Shield,
         SubMenu,
         Storage,
+        Interact,
         Die
     }
 
@@ -48,26 +42,22 @@ public class PlayerCore : MonoBehaviour
         _shield = GetComponent<Shield>();
         _attack = GetComponent<Attack>();
         _skill = GetComponent<Skill>();
+        _col = GetComponent<Collider>();
     }
 
     private void Start()
     {
         //temp
-        _hpMax = 5;
+        _hpMax = 999;
         _hp = _hpMax;
-        _mpMax = 3;
+        _mpMax = 999;
         _mp = _mpMax;
     }
 
     private void Update()
     {
         UpdateHpMpSliderValue();
-
-        if (_isInteracting)
-        {
-            return;
-        }
-
+        ColiderActivation();
         StateBehavior();
     }
 
@@ -76,13 +66,13 @@ public class PlayerCore : MonoBehaviour
         switch (eSTATE)
         {
             case STATE.Normal:
-                _move.DoMove(_anim);
+                _move.DoMove();
                 _attack.DoAttack(_anim);
                 break;
             case STATE.Attack:
                 break;
             case STATE.Movement:
-                _move.DoMove(_anim);
+                _move.DoMove();
                 _dodge.DoDodge().Forget();
                 break;
             case STATE.Skill:
@@ -92,6 +82,8 @@ public class PlayerCore : MonoBehaviour
             case STATE.SubMenu:
                 break;
             case STATE.Storage:
+                break;
+            case STATE.Interact:
                 break;
             case STATE.Die:
                 break;
@@ -138,12 +130,16 @@ public class PlayerCore : MonoBehaviour
         }
     }
 
+    private void ColiderActivation()
+    {
+        _col.enabled = (eSTATE == STATE.Interact || eSTATE == STATE.Die) ? false : true;
+    }
 
     private async UniTask Death()
     {
         eSTATE = STATE.Die;
         _anim.SetTrigger("Death");
         await UniTask.Delay(TimeSpan.FromSeconds(2.5f));
-        SceneManager.LoadScene("ToonWorld");
+        SceneManager.LoadScene("ToonWorld");//Temp
     }
 }

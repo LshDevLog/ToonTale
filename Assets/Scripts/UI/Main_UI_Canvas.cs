@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,7 +23,11 @@ public class Main_UI_Canvas : MonoBehaviour
     private Image _lSlotImg, _rSlotImg, _1SlotImg, _2SlotImg, _3SlotImg, _saveImg;
 
     [SerializeField]
-    private TextMeshProUGUI _hpText, _mpText, _shieldText, _dodgeText, _1SlotKeyText, _2SlotKeyText, _3SlotKeyText, _1SlotNoticeText, _2SlotNoticeText, _3SlotNoticeText, _saveDataText;
+    private TextMeshProUGUI _hpText, _mpText, _shieldText, _dodgeText, _1SlotKeyText, _2SlotKeyText, _3SlotKeyText, _1SlotNoticeText, _2SlotNoticeText, _3SlotNoticeText;
+
+    private CancellationTokenSource _cts;
+
+    private Tween _textTween, _scaleTween;
 
     private Vector2 _offStateVec, _offSlotsVec;
 
@@ -79,7 +84,6 @@ public class Main_UI_Canvas : MonoBehaviour
         UpdateSlotImg(_2SlotImg, Equipment.Instance._slot2_Weapon.icon);
         UpdateSlotImg(_3SlotImg, Equipment.Instance._slot3_Weapon.icon);
         UpdateSlotImg(_rSlotImg, Equipment.Instance._equippedWeapon.icon);
-        UpdateSlotImg(_lSlotImg, Equipment.Instance._equippedShield.icon);
         UpdateSkillCoolTimeSlider(_1SlotSlider, Equipment.Instance._slot1_Weapon);
         UpdateSkillCoolTimeSlider(_2SlotSlider, Equipment.Instance._slot2_Weapon);
         UpdateSkillCoolTimeSlider(_3SlotSlider, Equipment.Instance._slot3_Weapon);
@@ -142,13 +146,32 @@ public class Main_UI_Canvas : MonoBehaviour
 
     public async UniTask ShowSaveAlarm()
     {
-        _ =_saveImg.transform.DOScale(1, 0.2f);
-        _ = _saveDataText.DOText("It's saved!", 0.2f);
-        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        _cts = new CancellationTokenSource();
+
+        _scaleTween = _saveImg.transform.DOScale(1, 0.2f);
+        await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: _cts.Token);
         _ = _saveImg.transform.DOScale(0, 0.2f);
-        _saveDataText.text = string.Empty;
+        _cts.Dispose();
+        _cts = null;
     }
 
+    public void InstantResetSaveAlarm()
+    {
+        if(_cts != null)
+        {
+            _cts.Cancel();
+        }
+        if(_scaleTween != null && _scaleTween.IsActive())
+        {
+            _scaleTween.Kill();
+        }
+        if (_textTween != null && _textTween.IsActive())
+        {
+            _textTween.Kill();
+        }
+
+        _saveImg.transform.DOScale(0, 0);
+    }
 
     private void UpdateSlider(Slider slider, TextMeshProUGUI text)
     {
@@ -159,7 +182,7 @@ public class Main_UI_Canvas : MonoBehaviour
 
         if(text != null)
         {
-            if(text == _shieldText && Equipment.Instance._equippedShield == null)
+            if(text == _shieldText)
             {
                 text.text = "0/0";
             }

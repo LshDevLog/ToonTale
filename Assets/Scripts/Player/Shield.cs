@@ -6,11 +6,7 @@ public class Shield : MonoBehaviour
 
     private void Start()
     {
-        if(Equipment.Instance != null)
-        {
-            _durabilityMax = Equipment.Instance._equippedShield.durability;
-            _durability = _durabilityMax;
-        }
+        _durability = _durabilityMax;
     }
 
     private void Update()

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: ItemName Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: ItemName
+  m_TableCollectionNameGuidString: fe637e90d3f03674797f2e4d5c6efe47
+  m_Entries:
+  - m_Id: 19585667387392
+    m_Key: Empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 172415209472
+    m_Key: Plank
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15097577558016
+    m_Key: Axe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15141257039872
+    m_Key: Sword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15187989975040
+    m_Key: Hammer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15223415066624
+    m_Key: GoldenBranch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15307410198528
+    m_Key: CrystalSword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15360694636544
+    m_Key: AncientSword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20261243932672
+    m_Key: Cheese
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20320203264000
+    m_Key: RedWine
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 6215265833647341642
+  references:
+    version: 2
+    RefIds:
+    - rid: 6215265833647341642
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1729106232488
