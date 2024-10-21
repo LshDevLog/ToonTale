@@ -6,13 +6,13 @@ public class Shield : MonoBehaviour
 
     private void Start()
     {
+        _durabilityMax = 3;
         _durability = _durabilityMax;
     }
 
     private void Update()
     {
         UpdateShieldSliderValue();
-
     }
 
     private void UpdateShieldSliderValue()
